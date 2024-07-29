@@ -19,5 +19,24 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+
+        $users = [
+            [
+               'name'=>'Admin User',
+               'email'=>'admin@admin.com',
+               'type'=>2,
+               'password'=> bcrypt('123456'),
+            ],
+            [
+               'name'=>'User',
+               'email'=>'user@user.com',
+               'type'=>1,
+               'password'=> bcrypt('123456'),
+            ],
+        ];
+    
+        foreach ($users as $key => $user) {
+            User::create($user);
+        }
     }
 }

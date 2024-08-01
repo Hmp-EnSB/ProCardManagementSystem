@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleAuthController;
-
+use App\Http\Controllers\UserController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -22,12 +22,21 @@ Route::middleware('auth')->group(function () {
 // User routes
 Route::middleware(['auth', 'grant-by-user:user'])->group(function () {
     Route::get('/user/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('user.dashboard');
+   
 });
+
 
 // Admin routes
 Route::middleware(['auth', 'grant-by-user:admin'])->group(function () {
     Route::get('/admin/dashboard', [App\Http\Controllers\HomeController::class, 'adminDashboard'])->name('admin.dashboard');
-});
+    Route::get ('/user',[UserController::class, 'index'])->name('user.index');
+    Route::get ('/user/create',[UserController::class, 'create'])->name('user.create');
+    Route::post ('/user',[UserController::class, 'store'])->name('user.store');
+    Route::get ('/user/{user}/edit',[UserController::class, 'edit'])->name('user.edit');
+    Route::patch ('/user/{user}',[UserController::class, 'update'])->name('user.update'); 
+    Route::delete ('/user/{user}',[UserController::class, 'destroy'])->name('user.destroy');
+    Route::get ('/user/{user}/show',[UserController::class, 'show'])->name('user.show');
+     });
 
 
 Route::get('auth/google',[GoogleAuthController::class,'redirect'])->name('google-auth');

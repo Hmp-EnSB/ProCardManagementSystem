@@ -10,22 +10,22 @@
 	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
 	<link rel="preconnect" href="https://fonts.gstatic.com">
-	<link rel="shortcut icon" href="{{ asset('assetstest/img/icons/icon-48x48.png') }}" />
+	<link rel="shortcut icon" href="{{ asset('src/img/icons/icon-48x48.png') }}" />
 
 	<link rel="canonical" href="https://demo-basic.adminkit.io/" />
 
 	<title>AdminKit Demo - Bootstrap 5 Admin Template</title>
 
-	<link href="{{ asset('assetstest/css/app.css') }}" rel="stylesheet">
+	<link href="{{ asset('src/css/app.css') }}" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
 	<div class="wrapper">
         @include('layouts.admin.sidebar')
-        @include('layouts.admin.navbar')
+
 		<div class="main">
-			
+        @include('layouts.admin.navbar')
 
 			<main class="content">
 				<div class="container-fluid p-0">
@@ -64,7 +64,7 @@
 		</div>
 	</div>
 
-	<script src="{{ asset('assetstest/js/app.js') }}"></script>
+	<script src="{{ asset('src/js/app.js') }}"></script>
 
 </body>
 

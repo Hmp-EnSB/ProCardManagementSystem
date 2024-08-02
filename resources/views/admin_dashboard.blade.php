@@ -14,7 +14,7 @@
                         </div>
                     @endif
  
-                    <h2>You are an Admin .</h2>
+                    <h2>Welcome Back (^-^) .</h2>
                 </div>
             </div>
         </div>

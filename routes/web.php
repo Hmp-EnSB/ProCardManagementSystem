@@ -39,6 +39,7 @@ Route::middleware(['auth', 'grant-by-user:admin'])->group(function () {
      });
 
 
+
 Route::get('auth/google',[GoogleAuthController::class,'redirect'])->name('google-auth');
 Route::get('auth/google/call_back',[GoogleAuthController::class,'callbackGoogle']);
 

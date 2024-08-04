@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container">
-    <h1 class="mb-4">User Management</h1>
+    <h1 class="mb-4">Users Management</h1>
 
     <div class="card">
         <div class="card-header d-flex justify-content-between align-items-center">

@@ -10,6 +10,13 @@
             <a href="{{ route('user.create') }}" class="btn btn-primary">Add New User</a>
         </div>
         <div class="card-body">
+            <form action="{{ route('user.index') }}" method="GET" class="mb-3">
+                <div class="input-group">
+                    <input type="text" name="search" class="form-control" placeholder="Search by name" value="{{ request('search') }}">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </form>
+
             <table class="table table-hover">
                 <thead class="thead-light">
                     <tr>

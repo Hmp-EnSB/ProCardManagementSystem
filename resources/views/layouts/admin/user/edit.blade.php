@@ -49,7 +49,7 @@
                         </div>
                         <div class="text-end">
                             <a href="{{ route('user.index') }}" class="btn btn-secondary me-2">Cancel</a>
-                            <button type="submit" class="btn btn-primary px-4">Update User</button>
+                            <button type="submit" class="btn btn-primary px-4">Update</button>
                         </div>
                     </form>
                 </div>

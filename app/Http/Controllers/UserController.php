@@ -7,9 +7,14 @@ use App\Models\User;
 
 class UserController extends Controller
 {
-  public function index()
+  public function index(Request $request)
   {
-    $users = User::all();
+    $search = $request->input('search');
+    $users = User::when($search, function ($query) use ($search) {
+        return $query->where('name', 'like', "%{$search}%")
+                     ->orWhere('email', 'like', "%{$search}%");
+    })->get();
+
     return view('layouts.admin.user.index', compact('users'));
   }
 
@@ -21,7 +26,7 @@ class UserController extends Controller
       'password' => 'required|min:8',
     ]);
     User::create($request->all());
-    return redirect()->route('users.index')
+    return redirect()->route('user.index')
       ->with('success', 'User created successfully.');
   }
 
@@ -33,7 +38,7 @@ class UserController extends Controller
     ]);
     $user = User::find($id);
     $user->update($request->all());
-    return redirect()->route('users.index')
+    return redirect()->route('user.index')
       ->with('success', 'User updated successfully.');
   }
 
@@ -41,7 +46,7 @@ class UserController extends Controller
   {
     $user = User::find($id);
     $user->delete();
-    return redirect()->route('users.index')
+    return redirect()->route('user.index')
       ->with('success', 'User deleted successfully');
   }
 

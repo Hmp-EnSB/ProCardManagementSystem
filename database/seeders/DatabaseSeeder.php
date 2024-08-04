@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
                'email'=>'admin@admin.com',
                'type'=>2,
                'password'=> bcrypt('123456'),
+
             ],
             [
                'name'=>'User',

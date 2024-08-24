@@ -16,6 +16,7 @@ class Request extends Model
 
     public function requestInfo()
     {
-        return $this->hasOne(RequestInfo::class);
+        return $this->belongsTo(RequestInfo::class);
     }
+    
 }

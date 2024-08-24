@@ -47,20 +47,16 @@ Route::middleware(['auth', 'grant-by-user:admin'])->group(function () {
         Route::delete('/{user}', [UserController::class, 'destroy'])->name('user.destroy');
         Route::get('/{user}/show', [UserController::class, 'show'])->name('user.show');
     });
-
-    Route::prefix('admin/requests')->group(function () {
-     Route::get('', [RequestController::class, 'index'])->name('admin.requests.index');
-     Route::get('pending', [RequestController::class, 'index_p'])->name('admin.requests.pending');
-     Route::get('approved', [RequestController::class, 'index_a'])->name('admin.requests.approved');
-     Route::get('rejected', [RequestController::class, 'index_d'])->name('admin.requests.rejected');
-     Route::get('show/{id}', [RequestController::class, 'show'])->name('admin.requests.show');
-     Route::post('approve/{id}', [RequestController::class, 'approveRequest'])->name('admin.requests.approve');
-     Route::post('decline/{id}', [RequestController::class, 'declineRequest'])->name('admin.requests.decline');
-     Route::post('undo/{id}', [RequestController::class, 'undoDecision'])->name('admin.requests.undo');
-     Route::delete('destroy/{id}', [RequestController::class, 'destroy'])->name('admin.requests.destroy');
-    });
-    
+    Route::prefix('requests')->group(function () {
+        Route::get('/', [RequestController::class, 'index'])->name('requests.index');
+        Route::get('/{id}/pending', [RequestController::class, 'pending'])->name('requests.pending');
+        Route::get('/{id}/show', [RequestController::class, 'show'])->name('requests.show');
+        Route::delete('/{id}/rejected', [RequestController::class, 'rejected'])->name('requests.rejected');
+        Route::get('/{id}/approve', [RequestController::class, 'approve'])->name('requests.approve');
+    });   
+   
 });
+
 
 Route::get('auth/google', [GoogleAuthController::class, 'redirect'])->name('google-auth');
 Route::get('auth/google/call_back', [GoogleAuthController::class, 'callbackGoogle']);

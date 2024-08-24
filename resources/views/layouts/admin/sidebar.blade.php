@@ -17,10 +17,10 @@
             </li>
 
             <li class="sidebar-item">
- <a class="sidebar-link" href="{{ route('admin.requests.index') }}">
-<i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Requests</span>
- </a>
- </li>
+                <a class="sidebar-link" href="{{ route('requests.index') }}">
+                    <i class="align-middle" data-feather="file-text"></i> <span class="align-middle">Requests</span>
+                </a>
+            </li>
 
         </ul>
     </div>

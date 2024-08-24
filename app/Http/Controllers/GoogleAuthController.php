@@ -41,7 +41,8 @@ class GoogleAuthController extends Controller
             }
 
             Auth::login($user);
-            return redirect()->intended('dashboard');
+            return redirect('/user/dashboard');
+
 
         } catch (\Throwable $th) {
             return redirect()->route('login')->with('error', 'Google authentication failed: ' . $th->getMessage());

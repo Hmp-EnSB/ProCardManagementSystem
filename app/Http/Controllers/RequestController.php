@@ -9,40 +9,28 @@ use Illuminate\Support\Facades\DB;
 use App\Notifications\RequestStatusNotification;
 
 class RequestController extends Controller
-{    public function index()
+{
+    public function index(Request $request)
     {
         $user = Auth::user();
 
         if ($user->hasRole('admin')) {
-            $requests = CardRequest::with('user')->get();
+            $search = $request->input('search');
+            $status = $request->input('status', null);
+            $requests = CardRequest::with('user')
+                ->when($search, function ($query) use ($search) {
+                    return $query->whereHas('user', function ($query) use ($search) {
+                        $query->where('name', 'like', "%{$search}%");
+                    });
+                });
+
+            if ($status) {
+                $requests->where('status', $status);
+            }
+
+            $requests = $requests->get();
             return view('admin.requests.index', compact('requests'));
-        } else {
-            $requests = CardRequest::where('user_id', $user->id)->with('user')->get();
-            return view('user.dashboard', compact('requests'));
         }
-    }
-
-    public function index_p()
-    {
-        $requests = CardRequest::where('status', 'pending')->with('user')->get();
-        return view('admin.requests.pending', compact('requests'));
-    }
-
-    public function index_a()
-    {
-        $requests = CardRequest::where('status', 'approved')->with('user')->get();
-        return view('admin.requests.approved', compact('requests'));
-    }
-
-    public function index_d()
-    {
-        $requests = CardRequest::where('status', 'rejected')->with('user')->get();
-        return view('admin.requests.rejected', compact('requests'));
-    }
-
-    public function create()
-    {
-        return view('request.create');
     }
 
     public function store(Request $request)
@@ -68,12 +56,8 @@ class RequestController extends Controller
 
     public function show($id)
     {
-        $request = CardRequest::findOrFail($id);
-        if (Auth::user()->hasRole('admin')) {
-            return view('layouts.admin.requests.show', compact('request'));
-        } else {
-            return view('request.show', compact('request'));
-        }
+        $request = CardRequest::with('requestInfo')->findOrFail($id);
+        return view('requests.show', compact('request'));
     }
 
     public function edit($id)

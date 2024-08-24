@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.admin.app')
 
 @section('content')
     <div class="container">
@@ -37,7 +37,7 @@
         <div class="card">
             <div class="card-body">
                 <table class="table table-hover">
-                    <!-- ... (rest of the table code remains the same) ... -->
+                    <!-- Table content goes here -->
                 </table>
             </div>
         </div>

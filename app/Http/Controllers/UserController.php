@@ -9,26 +9,38 @@ class UserController extends Controller
 {
   public function index(Request $request)
   {
-    $search = $request->input('search');
-    $users = User::when($search, function ($query) use ($search) {
-        return $query->where('name', 'like', "%{$search}%")
-                     ->orWhere('email', 'like', "%{$search}%");
-    })->get();
-
-    return view('layouts.admin.user.index', compact('users'));
+      $search = $request->input('search');
+      $users = User::when($search, function ($query) use ($search) {
+          return $query->where('name', 'like', "%{$search}%")
+                       ->orWhere('email', 'like', "%{$search}%");
+      })
+      ->latest()
+      ->get()
+      ->fresh();
+  
+      return view('layouts.admin.user.index', compact('users'));
   }
+  
 
   public function store(Request $request)
-  {
-    $request->validate([
-      'name' => 'required|max:255',
-      'email' => 'required|email|unique:users',
-      'password' => 'required|min:8',
-    ]);
-    User::create($request->all());
-    return redirect()->route('user.index')
-      ->with('success', 'User created successfully.');
-  }
+    {
+        // Updated validation rules to allow reuse of soft-deleted user emails
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        // Create user logic
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+
+        return redirect()->route('user.index')
+            ->with('success', 'User created successfully.');
+    }
 
   public function update(Request $request, $id)
   {

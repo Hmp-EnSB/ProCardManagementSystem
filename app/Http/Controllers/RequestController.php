@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Request as CardRequest;
+use App\Models\RequestInfo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Notifications\RequestStatusNotification;
@@ -17,7 +18,7 @@ class RequestController extends Controller
         if ($user->hasRole('admin')) {
             $search = $request->input('search');
             $status = $request->input('status', null);
-            $requests = CardRequest::with('user')
+            $requests = CardRequest::with('user', 'requestInfo')
                 ->when($search, function ($query) use ($search) {
                     return $query->whereHas('user', function ($query) use ($search) {
                         $query->where('name', 'like', "%{$search}%");
@@ -33,25 +34,51 @@ class RequestController extends Controller
         }
     }
 
+    public function create()
+    {
+        return view('request.create');
+    }
+
     public function store(Request $request)
     {
         $request->validate([
-            'details' => 'required',
+            'full_name' => 'required',
+            'email' => 'required|email',
+            'phone_number' => 'required',
+            'CIN' => 'required',
+            'institution' => 'required',
+            'position' => 'required',
+            'type' => 'required|in:academic,administrative',
             'photo' => 'required|image',
         ]);
 
-        DB::transaction(function () use ($request) {
-            $photoPath = $request->file('photo')->store('public/photos');
-            $photoFilename = basename($photoPath);
+        $photoPath = $request->file('photo')->store('public/photos');
+        $photoFilename = basename($photoPath);
 
-            $cardRequest = auth()->user()->requests()->create();
-            $cardRequest->requestInfo()->create([
-                'details' => $request->details,
-                'photo' => $photoFilename,
-            ]);
-        });
+        $cardRequest = Auth::user()->requests()->create([
+            'status' => 'pending',
+        ]);
+
+        $cardRequest->requestInfo()->create([
+            'full_name' => $request->full_name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'CIN' => $request->CIN,
+            'institution' => $request->institution,
+            'position' => $request->position,
+            'type' => $request->type,
+            'photo' => $photoFilename,
+        ]);
 
         return redirect()->route('user.dashboard')->with('success', 'Request submitted successfully');
+    }
+
+    public function showInfo()
+    {
+        $user = Auth::user();
+        $request = $user->requests()->with('requestInfo')->latest()->first();
+
+        return view('request.edit', compact('request'));
     }
 
     public function show($id)
@@ -78,9 +105,9 @@ class RequestController extends Controller
     {
         $request = CardRequest::findOrFail($id);
         $request->update(['status' => 'approved']);
-        
+
         $request->user->notify(new RequestStatusNotification($request));
-        
+
         return redirect()->route('admin.requests.index')->with('success', 'Request approved');
     }
 
@@ -88,9 +115,9 @@ class RequestController extends Controller
     {
         $cardRequest = CardRequest::findOrFail($id);
         $cardRequest->update(['status' => 'rejected']);
-        
+
         $cardRequest->user->notify(new RequestStatusNotification($cardRequest));
-        
+
         return redirect()->route('admin.requests.index')->with('success', 'Request rejected');
     }
 
@@ -98,9 +125,9 @@ class RequestController extends Controller
     {
         $request = CardRequest::findOrFail($id);
         $request->update(['status' => 'pending']);
-        
+
         $request->user->notify(new RequestStatusNotification($request));
-        
+
         return redirect()->route('admin.requests.index')->with('success', 'Decision undone');
     }
 

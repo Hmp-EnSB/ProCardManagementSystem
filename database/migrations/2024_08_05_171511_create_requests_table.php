@@ -13,11 +13,18 @@ return new class extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->string('status')->default('pending');
+            $table->foreignId('request_id')->constrained()->onDelete('cascade');
+            $table->string('full_name');
+            $table->string('email');
+            $table->string('phone_number');
+            $table->string('CIN');
+            $table->string('institution');
+            $table->string('position');
+            $table->enum('type', ['academic', 'administrative']);
+            $table->string('photo');
+            $table->text('details')->nullable();
             $table->timestamps();
         });
-        
     }
 
     /**

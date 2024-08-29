@@ -6,6 +6,8 @@ use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RequestController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileUserController;
+
 
 Route::get('/', function () {
     return view('welcome');
@@ -16,9 +18,15 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
 
+    Route::get('/user/profileuser', [ProfileUserController::class, 'edit'])->name('profileuser.edit');
+    Route::patch('/user/profileuser', [ProfileUserController::class, 'update'])->name('profileuser.update'); 
+    Route::delete('/user/profileuser', [ProfileUserController::class, 'destroy'])->name('profileuser.destroy');
+  
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
 });
 
 // User routes

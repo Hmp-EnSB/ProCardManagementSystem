@@ -37,15 +37,9 @@
           <div class="collapse" id="cardRequest">
             <ul class="nav nav-collapse">
               <li>
-                <a href="make-request.html">
+                <a href="{{ route('request.create') }}">
                   <i class="fas fa-plus-circle"></i>
                   <span class="sub-item">Make Request</span>
-                </a>
-              </li>
-              <li>
-                <a href="request-info.html">
-                  <i class="fas fa-info-circle"></i>
-                  <span class="sub-item">Request Info</span>
                 </a>
               </li>
             </ul>

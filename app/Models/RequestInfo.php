@@ -9,9 +9,25 @@ class RequestInfo extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'full_name',
+        'email',
+        'phone_number',
+        'CIN',
+        'institution',
+        'position',
+        'type',
+        'photo',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function request()
     {
-        return $this->hasOne(Request::class);
+        return $this->belongsTo(Request::class);
     }
-    
-}    
+}

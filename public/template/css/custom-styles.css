@@ -1,0 +1,18 @@
+.card-pro-logo h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 28px;
+    color: #1e1e1e;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    padding: 15px 0;
+    text-align: center;
+}
+
+@media (max-width: 991px) {
+    .card-pro-logo h1 {
+        font-size: 24px;
+    }
+}
+

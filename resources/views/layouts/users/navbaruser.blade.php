@@ -1,7 +1,6 @@
 <!-- Navbar Header -->
 <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
   <div class="container-fluid">
-
     <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
       <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
         <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false" aria-haspopup="true">
@@ -39,7 +38,6 @@
                     <span class="time">5 minutes ago</span>
                   </div>
                 </a>
-                <!-- Add more message items here -->
               </div>
             </div>
           </li>
@@ -69,7 +67,6 @@
                     <span class="time">5 minutes ago</span>
                   </div>
                 </a>
-                <!-- Add more notification items here -->
               </div>
             </div>
           </li>
@@ -98,36 +95,19 @@
                     <span class="text">Calendar</span>
                   </div>
                 </a>
-                <!-- Add more quick action items here -->
               </div>
             </div>
           </div>
         </div>
       </li>
       <li class="nav-item topbar-user dropdown hidden-caret">
-        <a class="dropdown-toggle profile-pic" data-bs-toggle="dropdown" href="#" aria-expanded="false">
-          <div class="avatar-sm">
-            <img src="assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle" />
-          </div>
-          <span class="profile-username">
-            <span class="op-7">Hi,</span>
-            <span class="fw-bold">User</span>
-          </span>
+        <a class="dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown" href="#" aria-expanded="false">
+          <i class="fas fa-cog me-2"></i>
+          <span class="fw-bold">Settings</span>
         </a>
         <ul class="dropdown-menu dropdown-user animated fadeIn">
           <div class="dropdown-user-scroll scrollbar-outer">
             <li>
-              <div class="user-box">
-                <div class="avatar-lg">
-                  <img src="assets/img/profile.jpg" alt="image profile" class="avatar-img rounded" />
-                </div>
-                <div class="u-text">
-                  <h4>User</h4>
-                </div>
-              </div>
-            </li>
-            <li>
-              <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{{ route('profileuser.edit') }}">My Profile</a>
               <div class="dropdown-divider"></div>
               <!-- Authentication -->

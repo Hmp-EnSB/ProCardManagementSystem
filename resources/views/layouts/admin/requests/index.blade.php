@@ -10,7 +10,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Pending Requests</h5>
                         <p class="card-text">View all pending requests</p>
-                        <a href="{{ route('admin.requests.index', ['status' => 'pending']) }}" class="btn btn-warning btn-block">Pending</a>
+                        <a href="{{ route('layouts.admin.requests.pending', ['status' => 'pending']) }}" class="btn btn-warning btn-block">Pending</a>
                     </div>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Rejected Requests</h5>
                         <p class="card-text">View all rejected requests</p>
-                        <a href="{{ route('admin.requests.index', ['status' => 'rejected']) }}" class="btn btn-danger btn-block">Rejected</a>
+                        <a href="{{ route('layouts.admin.requests.rejected', ['status' => 'rejected']) }}" class="btn btn-danger btn-block">Rejected</a>
                     </div>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     <div class="card-body text-center">
                         <h5 class="card-title">Approved Requests</h5>
                         <p class="card-text">View all approved requests</p>
-                        <a href="{{ route('admin.requests.index', ['status' => 'approved']) }}" class="btn btn-success btn-block">Approved</a>
+                        <a href="{{ route('layouts.admin.requests.approved', ['status' => 'approved']) }}" class="btn btn-success btn-block">Approved</a>
                     </div>
                 </div>
             </div>

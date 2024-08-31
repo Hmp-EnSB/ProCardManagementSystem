@@ -10,7 +10,7 @@
                     <h5 class="card-title mb-0">Edit Profile</h5>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('profile.update') }}" method="POST">
+                    <form action="{{ route('profileadmin.update') }}" method="POST">
                         @csrf
                         @method('PATCH')
                         

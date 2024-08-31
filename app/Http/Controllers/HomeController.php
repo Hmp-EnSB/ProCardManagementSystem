@@ -1,47 +1,34 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index(): View
+    public function index()
     {
-        return view('home');
+        if (Auth::check()) {
+            if (Auth::user()->type == 'admin') {
+                return redirect()->route('admin.dashboard');
+            } else {
+                return redirect()->route('user.dashboard');
+            }
+        }
+        return view('welcome');
     }
 
-    /**
-     * Show the user dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function userDashboard(): View
     {
         return view('user_dashboard');
     }
 
-    /**
-     * Show the admin dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function adminDashboard(): View
     {
         return view('admin_dashboard');

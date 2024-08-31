@@ -8,32 +8,22 @@ use App\Http\Controllers\RequestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileUserController;
 
-
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
 
-    Route::get('/user/profileuser', [ProfileUserController::class, 'edit'])->name('profileuser.edit');
-    Route::patch('/user/profileuser', [ProfileUserController::class, 'update'])->name('profileuser.update'); 
-    Route::delete('/user/profileuser', [ProfileUserController::class, 'destroy'])->name('profileuser.destroy');
-  
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
-
-});
 
 // User routes
 Route::middleware(['auth', 'grant-by-user:user'])->group(function () {
     Route::get('/user/dashboard', [HomeController::class, 'userDashboard'])->name('user.dashboard');
-    
-    Route::prefix('request')->group(function () {
+     // User profile management
+     Route::get('/user/profileuser', [ProfileUserController::class, 'edit'])->name('profileuser.edit');
+     Route::patch('/user/profileuser', [ProfileUserController::class, 'update'])->name('profileuser.update'); 
+     Route::delete('/user/profileuser', [ProfileUserController::class, 'destroy'])->name('profileuser.destroy');
+   
+     Route::prefix('request')->group(function () {
         Route::get('/create', [RequestController::class, 'create'])->name('request.create');
         Route::post('/', [RequestController::class, 'store'])->name('request.store');
         Route::get('/{id}/edit', [RequestController::class, 'edit'])->name('request.edit');
@@ -46,7 +36,12 @@ Route::middleware(['auth', 'grant-by-user:user'])->group(function () {
 Route::middleware(['auth', 'grant-by-user:admin'])->group(function () {
     Route::get('/admin/dashboard', [HomeController::class, 'adminDashboard'])->name('admin.dashboard');
     
-    Route::prefix('user')->group(function () {
+      // Admin profile management
+      Route::get('/admin/profileadmin', [ProfileController::class, 'edit'])->name('profileadmin.edit');
+      Route::patch('/admin/profileadmin', [ProfileController::class, 'update'])->name('profileadmin.update');
+      Route::delete('/admin/profileadmin', [ProfileController::class, 'destroy'])->name('profileadmin.destroy');
+    
+      Route::prefix('user')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('user.index');
         Route::get('/create', [UserController::class, 'create'])->name('user.create');
         Route::post('/', [UserController::class, 'store'])->name('user.store');
@@ -56,11 +51,11 @@ Route::middleware(['auth', 'grant-by-user:admin'])->group(function () {
         Route::get('/{user}/show', [UserController::class, 'show'])->name('user.show');
     });
     Route::prefix('requests')->group(function () {
-        Route::get('/', [RequestController::class, 'index'])->name('requests.index');
-        Route::get('/{id}/pending', [RequestController::class, 'pending'])->name('requests.pending');
-        Route::get('/{id}/show', [RequestController::class, 'show'])->name('requests.show');
-        Route::delete('/{id}/rejected', [RequestController::class, 'rejected'])->name('requests.rejected');
-        Route::get('/{id}/approve', [RequestController::class, 'approve'])->name('requests.approve');
+        Route::get('/admin/requests/index', [RequestController::class, 'index'])->name('requests.index');
+        Route::get('/{Requests}/pending', [RequestController::class, 'pending'])->name('requests.pending');
+        Route::get('/{Requests}/show', [RequestController::class, 'show'])->name('requests.show');
+        Route::delete('/{Requests}/rejected', [RequestController::class, 'rejected'])->name('requests.rejected');
+        Route::get('/{Requests}/approve', [RequestController::class, 'approve'])->name('requests.approve');
     });   
    
 });

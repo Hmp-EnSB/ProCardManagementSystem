@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="{{ asset('template/images/Logo_Uni.png') }}" type="image/png" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <title>Card_Pro</title>
     <!-- Bootstrap core CSS -->
@@ -22,11 +23,11 @@
                 <div class="col-12">
                     <nav class="main-nav">
                         <!-- ***** Logo Start ***** -->
-                        <a href="index.html" class="logo">
+                        <a href="/" class="logo">
                             <h1>Card pro</h1>
                         </a>
                         <!-- ***** Logo End ***** -->
-                       
+                        
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
                             <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
@@ -55,26 +56,24 @@
                     <div class="owl-carousel owl-banner">
                         <div class="item item-1">
                             <div class="header-text">
-                                <span class="category">Our Courses</span>
-                                <h2>With Scholar Teachers, Everything Is Easier</h2>
-                                <p>Scholar is free CSS template designed by TemplateMo for online educational related websites. This layout is based on the famous Bootstrap v5.3.0 framework.</p>
-                               
+                                <span class="category">Bienvenue </span>
+                                <h2>La Plateforme de Demande de Carte</h2>
+                                <p>la soumission et le suivi de vos demandes de cartes professionnelles en toute simplicité et efficacité.</p>
                             </div>
                         </div>
                         <div class="item item-2">
                             <div class="header-text">
-                                <span class="category">Best Result</span>
-                                <h2>Get the best result out of your effort</h2>
-                                <p>You are allowed to use this template for any educational or commercial purpose. You are not allowed to re-distribute the template ZIP file on any other website.</p>
+                                <span class="category">Accédez</span>
+                                <h2>Votre Espace Personnel</h2>
+                                <p>Suivez l'état de vos demandes et gérez vos informations facilement et et recevez des mises à jour sous forme de notification.</p>
                               
                             </div>
                         </div>
                         <div class="item item-3">
                             <div class="header-text">
-                                <span class="category">Online Learning</span>
-                                <h2>Online Learning helps you save the time</h2>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temporious incididunt ut labore et dolore magna aliqua suspendisse.</p>
-                                
+                                <span class="category">Optimisez</span>
+                                <h2>la Gestion des Cartes et du temps</h2>
+                                <p>Pour les administrateurs et les utilisateurs, un outil complet à votre service.</p>   
                             </div>
                         </div>
                     </div>
@@ -82,6 +81,7 @@
             </div>
         </div>
     </div>
+  
     <div class="contact-us section" id="contact">
     <div class="container">
       <div class="row">

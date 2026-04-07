@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Request as CardRequest;
+use App\Models\Request as Requests;
 use App\Models\RequestInfo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -18,7 +18,7 @@ class RequestController extends Controller
         if ($user->hasRole('admin')) {
             $search = $request->input('search');
             $status = $request->input('status', null);
-            $requests = CardRequest::with('user', 'requestInfo')
+            $requests = Requests::with('user', 'requestInfo')
                 ->when($search, function ($query) use ($search) {
                     return $query->whereHas('user', function ($query) use ($search) {
                         $query->where('name', 'like', "%{$search}%");
@@ -83,19 +83,19 @@ class RequestController extends Controller
 
     public function show($id)
     {
-        $request = CardRequest::with('requestInfo')->findOrFail($id);
+        $request = Requests::with('requestInfo')->findOrFail($id);
         return view('requests.show', compact('request'));
     }
 
     public function edit($id)
     {
-        $request = CardRequest::findOrFail($id);
+        $request = Requests::findOrFail($id);
         return view('request.edit', compact('request'));
     }
 
     public function update(Request $request, $id)
     {
-        $cardRequest = CardRequest::findOrFail($id);
+        $cardRequest = Requests::findOrFail($id);
         $cardRequest->requestInfo->update(['details' => $request->details]);
 
         return redirect()->route('user.dashboard')->with('success', 'Request updated successfully');
@@ -103,7 +103,7 @@ class RequestController extends Controller
 
     public function approveRequest($id)
     {
-        $request = CardRequest::findOrFail($id);
+        $request = Requests::findOrFail($id);
         $request->update(['status' => 'approved']);
 
         $request->user->notify(new RequestStatusNotification($request));
@@ -113,17 +113,17 @@ class RequestController extends Controller
 
     public function declineRequest($id)
     {
-        $cardRequest = CardRequest::findOrFail($id);
+        $cardRequest = Requests::findOrFail($id);
         $cardRequest->update(['status' => 'rejected']);
 
-        $cardRequest->user->notify(new RequestStatusNotification($cardRequest));
+        $cardRequest->user->notify(new RequestStatusNotification($Requests));
 
         return redirect()->route('admin.requests.index')->with('success', 'Request rejected');
     }
 
     public function undoDecision($id)
     {
-        $request = CardRequest::findOrFail($id);
+        $request = Requests::findOrFail($id);
         $request->update(['status' => 'pending']);
 
         $request->user->notify(new RequestStatusNotification($request));
@@ -133,7 +133,7 @@ class RequestController extends Controller
 
     public function destroy($id)
     {
-        $request = CardRequest::findOrFail($id);
+        $request = Requests::findOrFail($id);
         $request->delete();
         return redirect()->route('admin.requests.index')->with('success', 'Request deleted successfully');
     }

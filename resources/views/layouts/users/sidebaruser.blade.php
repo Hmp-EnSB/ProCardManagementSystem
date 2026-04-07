@@ -3,14 +3,18 @@
   <div class="sidebar-logo">
     <!-- Logo Header -->
     <div class="logo-header" data-background-color="dark">
-      <a href="/" class="logo d-flex align-items-center p-2 rounded shadow-sm" style="border: 1px solid rgba(255, 255, 255, 0.2);">
+      <a href="/" class="logo d-flex align-items-center p-2 rounded shadow-sm" style="background-color: rgba(255, 255, 255, 0.1); transition: all 0.3s ease;">
         <div class="logo-icon me-2">
-          <i class="align-middle text-white" data-feather="home"></i>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-left text-white">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
         </div>
         <div class="logo-text">
-          <h5 class="mb-0 text-light">Return to Home</h5>
+          <h6 class="mb-0 text-light">Return</h6>
         </div>
       </a>
+
       <div class="nav-toggle">
         <button class="btn btn-toggle toggle-sidebar">
           <i class="gg-menu-right"></i>

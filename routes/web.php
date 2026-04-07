@@ -50,13 +50,19 @@ Route::middleware(['auth', 'grant-by-user:admin'])->group(function () {
         Route::delete('/{user}', [UserController::class, 'destroy'])->name('user.destroy');
         Route::get('/{user}/show', [UserController::class, 'show'])->name('user.show');
     });
-    Route::prefix('requests')->group(function () {
-        Route::get('/admin/requests/index', [RequestController::class, 'index'])->name('requests.index');
-        Route::get('/{Requests}/pending', [RequestController::class, 'pending'])->name('requests.pending');
-        Route::get('/{Requests}/show', [RequestController::class, 'show'])->name('requests.show');
-        Route::delete('/{Requests}/rejected', [RequestController::class, 'rejected'])->name('requests.rejected');
-        Route::get('/{Requests}/approve', [RequestController::class, 'approve'])->name('requests.approve');
-    });   
+
+        Route::prefix('requests')->middleware(['auth', 'grant-by-user:admin'])->group(function () {
+            Route::get('', [RequestController::class, 'index'])->name('admin.requests');
+            Route::get('pending', [RequestController::class, 'index_p'])->name('requests.pending');
+            Route::get('approved', [RequestController::class, 'index_a'])->name('requests.approved');
+            Route::get('rejected', [RequestController::class, 'index_d'])->name('requests.rejected');
+            Route::get('show/{id}', [RequestController::class, 'show'])->name('admin.request.show');
+            Route::post('approve/{id}', [RequestController::class, 'approveRequest'])->name('admin.request.approve');
+            Route::post('decline/{id}', [RequestController::class, 'declineRequest'])->name('admin.request.decline');
+            Route::delete('destroy/{id}', [RequestController::class, 'destroy'])->name('requests.destroy'); 
+            Route::post('undo/{id}', [RequestController::class, 'undoDecision'])->name('decision.undo');   
+        });
+    
    
 });
 

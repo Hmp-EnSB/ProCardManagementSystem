@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('request_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('card_info_id')->constrained()->onDelete('cascade');
             $table->string('full_name');
             $table->string('email');
             $table->string('phone_number');
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->enum('type', ['academic', 'administrative']);
             $table->string('photo');
             $table->text('details')->nullable();
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->timestamps();
         });
     }
